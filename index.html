@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Alabi | Data Scientist & Geospatial Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Professional -->
+    <!-- Application Structure Plan: The SPA is designed with a top-down, thematic structure, starting with a high-level summary and allowing users to progressively drill down into details. A persistent navigation bar allows users to jump to specific sections (Overview, Experience, Skills, Publications), catering to different user goals (e.g., a recruiter might jump directly to Skills). The core interactive element is the chronological timeline in the 'Experience' section, which turns a static list of jobs and awards into an engaging career narrative. This structure was chosen for its intuitive flow and ability to present a large amount of information without overwhelming the user, balancing scannability with deep-dive exploration. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Professional Experience & Awards -> Goal: Organize/Show Change -> Viz/Presentation: Interactive vertical timeline -> Interaction: Click to expand/collapse details for each event -> Justification: This creates a more dynamic and engaging story of career progression compared to a static list, showing how achievements are interspersed with professional roles. -> Method: HTML/CSS/Tailwind + Vanilla JS.
+        - Report Info: Key Skills -> Goal: Compare/Organize -> Viz/Presentation: Horizontal Bar Chart -> Interaction: Tooltips on hover to list specific skills within a category. -> Justification: Visually groups competencies for quick assessment and comparison of skill areas. -> Library/Method: Chart.js.
+        - Report Info: Profile Summary, Publications, Certifications -> Goal: Inform -> Viz/Presentation: Clean, well-formatted text blocks and lists -> Interaction: Minimal (hover effects) -> Justification: Prioritizes readability and clarity for dense, text-based information. -> Method: HTML + Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #333D44;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+        .timeline-item .timeline-content {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .timeline-item.active .timeline-content {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800">William Alabi</h1>
+                    <p class="text-sm text-gray-500">Data Scientist & Geospatial Analyst</p>
+                </div>
+                <nav id="main-nav" class="hidden md:flex space-x-8">
+                    <a href="#overview" class="nav-link text-gray-600 font-medium pb-1">Overview</a>
+                    <a href="#experience" class="nav-link text-gray-600 font-medium pb-1">Experience</a>
+                    <a href="#skills" class="nav-link text-gray-600 font-medium pb-1">Skills</a>
+                    <a href="#publications" class="nav-link text-gray-600 font-medium pb-1">Publications</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="overview" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Profile Summary</h2>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                 <p class="text-lg text-gray-700 leading-relaxed">
+                    A highly dedicated Geography graduate from the University of Ibadan, Nigeria, with core expertise in Data Science, Machine Learning, Deep Learning, and Geospatial Analysis. I possess strong proficiency in Python and specialized libraries for geospatial data processing, Natural Language Processing (NLP), and time series forecasting. I have practical experience in geospatial machine learning operations and large-scale data analysis, backed by a strong track record of winning top awards in competitive data science challenges.
+                </p>
+                <div class="mt-6 border-t pt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="flex items-center">
+                         <div class="mr-4 text-blue-600">
+                             <span class="w-10 h-10 flex items-center justify-center text-xl">🎓</span>
+                         </div>
+                         <div>
+                             <h3 class="font-semibold text-gray-800">Education</h3>
+                             <p class="text-gray-600">B.Sc. Geography, University of Ibadan</p>
+                         </div>
+                    </div>
+                     <div class="flex items-center">
+                         <div class="mr-4 text-blue-600">
+                             <span class="w-10 h-10 flex items-center justify-center text-xl">📧</span>
+                         </div>
+                         <div>
+                             <h3 class="font-semibold text-gray-800">Contact</h3>
+                             <p class="text-gray-600">willieseun2018@gmail.com</p>
+                             <p class="text-gray-600">+2349014496871</p>
+                         </div>
+                    </div>
+                     <div class="flex items-start">
+                         <div class="mr-4 text-blue-600">
+                             <span class="w-10 h-10 flex items-center justify-center text-xl">🔗</span>
+                         </div>
+                         <div>
+                             <h3 class="font-semibold text-gray-800">Online Profiles</h3>
+                             <ul class="text-sm space-y-1">
+                                 <li><a href="https://www.linkedin.com/in/william-alabi-b36106200/" target="_blank" class="text-blue-500 hover:underline">LinkedIn</a></li>
+                                 <li><a href="https://github.com/willieseun" target="_blank" class="text-blue-500 hover:underline">GitHub</a></li>
+                                 <li><a href="https://www.kaggle.com/williamalabi" target="_blank" class="text-blue-500 hover:underline">Kaggle</a></li>
+                             </ul>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Professional Journey</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">This section provides a chronological overview of my professional experience and key achievements in data science competitions. Click on any item to see more details.</p>
+            <div id="timeline-container" class="relative border-l-2 border-blue-200 ml-4">
+            </div>
+        </section>
+        
+        <section id="skills" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Skills & Competencies</h2>
+             <p class="text-lg text-gray-600 mb-8 max-w-3xl">My technical skills are distributed across programming, data science, and geospatial analysis. The chart below visualizes the number of key technologies I work with in each domain. Hover over the bars for specifics.</p>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Publications & Certifications</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Publications</h3>
+                    <ul id="publications-list" class="space-y-4">
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Certifications</h3>
+                    <ul id="certifications-list" class="space-y-3">
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-white border-t">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2025 William Alabi. Interactive CV created to showcase professional profile.</p>
+            <p class="mt-1">References available upon request.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const experienceData = [
+        {
+            type: 'job',
+            date: 'Jul 2023 - Nov 2023',
+            title: 'Geographic Information System Intern',
+            company: 'International Institute of Tropical Agriculture (IITA)',
+            details: [
+                'Applied Machine Learning and Deep Learning models to Synthetic Aperture Radar (SAR) and Sentinel-2 imagery for crop identification (Banana, Cassava).'
+            ]
+        },
+        {
+            type: 'award',
+            date: '2024',
+            title: '1st Place - Climate Risk Research Challenge',
+            company: 'DEWSClim Team',
+            details: [
+                'Achieved first place by leveraging GIS and climate & crop datasets for innovative climate risk research.'
+            ]
+        },
+        {
+            type: 'job',
+            date: 'Dec 2021 - Nov 2022',
+            title: 'Geographic Information System Intern',
+            company: 'International Institute of Tropical Agriculture (IITA)',
+            details: [
+                'Conducted satellite and UAV image classification using ML and DL models.',
+                'Performed spatial interpolation with ArcGIS and Python.',
+                'Analyzed the Relative Wealth Index using geospatial datasets.'
+            ]
+        },
+        {
+            type: 'award',
+            date: '2022',
+            title: 'Silver Medalist - Feedback Prize',
+            company: 'Kaggle',
+            details: [
+                'Secured a silver medal in a competitive English Language Learning competition focused on NLP.'
+            ]
+        },
+         {
+            type: 'award',
+            date: '2024',
+            title: 'Silver Medal (Top 1%) - Location Mention Recognition',
+            company: 'Zindi',
+            details: [
+                'Ranked in the top 1% in the Microsoft Learn Location Mention Recognition Challenge.'
+            ]
+        }
+    ];
+
+    const timelineContainer = document.getElementById('timeline-container');
+    experienceData.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'timeline-item mb-8 ml-8 cursor-pointer';
+
+        const icon = item.type === 'job' ? '💼' : '🏆';
+        const color = item.type === 'job' ? 'bg-blue-500' : 'bg-amber-500';
+
+        let detailsHTML = item.details.map(detail => `<li class="text-gray-600">${detail}</li>`).join('');
+
+        itemEl.innerHTML = `
+            <div class="absolute -left-4 mt-1.5 w-8 h-8 ${color} rounded-full text-white flex items-center justify-center">${icon}</div>
+            <div class="p-4 bg-white rounded-lg shadow-sm border">
+                <time class="text-sm font-normal text-gray-400">${item.date}</time>
+                <h3 class="text-lg font-semibold text-gray-900">${item.title}</h3>
+                <p class="text-base font-normal text-gray-500">${item.company}</p>
+                <div class="timeline-content">
+                    <ul class="list-disc pl-5 space-y-1">
+                        ${detailsHTML}
+                    </ul>
+                </div>
+            </div>
+        `;
+        timelineContainer.appendChild(itemEl);
+    });
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+
+
+    const skillsData = {
+        labels: ['Data Science/AI', 'Geospatial', 'Programming'],
+        datasets: [{
+            label: 'Number of Core Skills',
+            data: [5, 4, 4.5],
+            backgroundColor: [
+                'rgba(59, 130, 246, 0.6)',
+                'rgba(16, 185, 129, 0.6)',
+                'rgba(139, 92, 246, 0.6)'
+            ],
+            borderColor: [
+                'rgba(59, 130, 246, 1)',
+                'rgba(16, 185, 129, 1)',
+                'rgba(139, 92, 246, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+    
+    const skillsDetails = {
+        'Data Science/AI': ['Machine Learning', 'Deep Learning', 'NLP', 'PyTorch', 'TensorFlow'],
+        'Geospatial': ['Remote Sensing', 'Geospatial Analysis', 'ArcGIS', 'Satellite Imagery Processing'],
+        'Programming': ['Python', 'C', 'R']
+    };
+
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: skillsData,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                     grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            const category = context.label;
+                            const skillsList = skillsDetails[category].join(', ');
+                            return `${category} Skills: ${skillsList}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
+    const publicationsData = [
+        { text: "Tunrayo Alabi, Francis Muthoni, John Uponi, **William Alabi**, et al. (2024). High-resolution crop-type mapping in northern Ghana. *IITA*." },
+        { text: "Tunrayo Alabi, Francis Muthoni, John Uponi, **William Alabi**, et al. (2025). Assessing Food Security in Northern Ghana with Machine Learning using UAV, SAR and Optical Imagery (*In Press*)." },
+        { text: "John Uponi, **William Alabi**, Tunrayo Alabi, Kyle Davis, et al. (2025). Landscape and Livelihood Analysis of Maize and Cassava Cropping Systems in Southwest Nigeria (*In Press*)." }
+    ];
+
+    const certificationsData = [
+        { name: "Python for Everybody Specialization - Coursera", link: "#" }, // Placeholder for actual certificate link
+        { name: "Technical Support Fundamentals - Coursera", link: "" },
+        { name: "Beyond the Sustainable Development Goals (SDGs) - Coursera", link: "" },
+        { name: "Introduction to Git and GitHub - Coursera", link: "" },
+        { name: "Crash Course on Python - Coursera", link: "" }
+    ];
+
+    const publicationsList = document.getElementById('publications-list');
+    publicationsData.forEach(pub => {
+        const li = document.createElement('li');
+        li.className = 'text-gray-700 leading-relaxed border-b pb-4';
+        li.innerHTML = pub.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
+        publicationsList.appendChild(li);
+    });
+
+    const certificationsList = document.getElementById('certifications-list');
+    certificationsData.forEach(cert => {
+        const li = document.createElement('li');
+        li.className = 'text-gray-700 flex items-center';
+        
+        let content;
+        if (cert.link && cert.link !== '#') {
+             // If a valid link exists
+             content = `<span class="text-green-500 mr-2">✔</span> <a href="${cert.link}" target="_blank" class="text-blue-600 hover:underline">${cert.name}</a>`;
+        } else if (cert.link === '#') {
+             // If placeholder link exists (for the main specialization)
+             content = `<span class="text-green-500 mr-2">✔</span> ${cert.name} <span class="text-gray-500 text-xs"></span>`;
+        } else {
+             // For all other entries
+             content = `<span class="text-green-500 mr-2">✔</span> ${cert.name}`;
+        }
+
+        li.innerHTML = content;
+        certificationsList.appendChild(li);
+    });
+
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('#main-nav a');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 70) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
