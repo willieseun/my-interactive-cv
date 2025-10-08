@@ -9,13 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Calm Professional -->
-    <!-- Application Structure Plan: The SPA is designed with a top-down, thematic structure, starting with a high-level summary and allowing users to progressively drill down into details. A persistent navigation bar allows users to jump to specific sections (Overview, Experience, Skills, Publications), catering to different user goals (e.g., a recruiter might jump directly to Skills). The core interactive element is the chronological timeline in the 'Experience' section, which turns a static list of jobs and awards into an engaging career narrative. This structure was chosen for its intuitive flow and ability to present a large amount of information without overwhelming the user, balancing scannability with deep-dive exploration. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Professional Experience & Awards -> Goal: Organize/Show Change -> Viz/Presentation: Interactive vertical timeline -> Interaction: Click to expand/collapse details for each event -> Justification: This creates a more dynamic and engaging story of career progression compared to a static list, showing how achievements are interspersed with professional roles. -> Method: HTML/CSS/Tailwind + Vanilla JS.
-        - Report Info: Key Skills -> Goal: Compare/Organize -> Viz/Presentation: Horizontal Bar Chart -> Interaction: Tooltips on hover to list specific skills within a category. -> Justification: Visually groups competencies for quick assessment and comparison of skill areas. -> Library/Method: Chart.js.
-        - Report Info: Profile Summary, Publications, Certifications -> Goal: Inform -> Viz/Presentation: Clean, well-formatted text blocks and lists -> Interaction: Minimal (hover effects) -> Justification: Prioritizes readability and clarity for dense, text-based information. -> Method: HTML + Tailwind. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -79,7 +72,7 @@
         <section id="overview" class="mb-16 scroll-mt-24">
             <h2 class="text-3xl font-bold text-gray-800 mb-6">Profile Summary</h2>
             <div class="bg-white p-6 rounded-lg shadow-sm">
-                 <p class="text-lg text-gray-700 leading-relaxed">
+                <p class="text-lg text-gray-700 leading-relaxed">
                     A highly dedicated Geography graduate from the University of Ibadan, Nigeria, with core expertise in Data Science, Machine Learning, Deep Learning, and Geospatial Analysis. I possess strong proficiency in Python and specialized libraries for geospatial data processing, Natural Language Processing (NLP), and time series forecasting. I have practical experience in geospatial machine learning operations and large-scale data analysis, backed by a strong track record of winning top awards in competitive data science challenges.
                 </p>
                 <div class="mt-6 border-t pt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -321,12 +314,12 @@ document.addEventListener('DOMContentLoaded', function() {
         { text: "John Uponi, **William Alabi**, Tunrayo Alabi, Kyle Davis, et al. (2025). Landscape and Livelihood Analysis of Maize and Cassava Cropping Systems in Southwest Nigeria (*In Press*)." }
     ];
 
+    // --- UPDATED CERTIFICATIONS SECTION ---
     const certificationsData = [
-        { name: "Python for Everybody Specialization - Coursera", link: "#" }, // Placeholder for actual certificate link
-        { name: "Technical Support Fundamentals - Coursera", link: "" },
-        { name: "Beyond the Sustainable Development Goals (SDGs) - Coursera", link: "" },
-        { name: "Introduction to Git and GitHub - Coursera", link: "" },
-        { name: "Crash Course on Python - Coursera", link: "" }
+        { name: "Python for Everybody Specialization", link: "https://www.coursera.org/account/accomplishments/specialization/J34HSKWKZD2N" },
+        { name: "Introduction to Git and GitHub", link: "https://www.coursera.org/account/accomplishments/verify/WPXJ64VLS2S4" },
+        { name: "Technical Support Fundamentals", link: "https://www.coursera.org/account/accomplishments/verify/CRC79ZYYSNQH" },
+        { name: "Crash Course on Python", link: "https://www.coursera.org/account/accomplishments/verify/N5GFSFRFPJFW" }
     ];
 
     const publicationsList = document.getElementById('publications-list');
@@ -341,20 +334,8 @@ document.addEventListener('DOMContentLoaded', function() {
     certificationsData.forEach(cert => {
         const li = document.createElement('li');
         li.className = 'text-gray-700 flex items-center';
-        
-        let content;
-        if (cert.link && cert.link !== '#') {
-             // If a valid link exists
-             content = `<span class="text-green-500 mr-2">✔</span> <a href="${cert.link}" target="_blank" class="text-blue-600 hover:underline">${cert.name}</a>`;
-        } else if (cert.link === '#') {
-             // If placeholder link exists (for the main specialization)
-             content = `<span class="text-green-500 mr-2">✔</span> ${cert.name} <span class="text-gray-500 text-xs"></span>`;
-        } else {
-             // For all other entries
-             content = `<span class="text-green-500 mr-2">✔</span> ${cert.name}`;
-        }
-
-        li.innerHTML = content;
+        // Simplified the logic as all certifications now have a valid link
+        li.innerHTML = `<span class="text-green-500 mr-2">✔</span> <a href="${cert.link}" target="_blank" class="text-blue-600 hover:underline">${cert.name} (Coursera)</a>`;
         certificationsList.appendChild(li);
     });
 
@@ -383,4 +364,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
